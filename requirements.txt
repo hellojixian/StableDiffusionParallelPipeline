@@ -1,0 +1,4 @@
+diffusers==0.16.1
+transformers==4.28.1
+torch==2.0.0
+xformers==0.0.19
