@@ -1,4 +1,9 @@
 # StableDiffusionParallelPipeline
+## Video Introduction (Chinese)
+https://youtu.be/cz-NzpRyKU8
+
+
+## How it works 
 this pipeline allow stable diffusion to use multi-GPU resources to speed up single image generation
 
 In this code sample, i refactored the txt2img pipeline, but other pipelines such as img2img are similar concept.
