@@ -14,8 +14,6 @@ class StableDiffusionParallelPipeline:
 
   def to(self, device):
     self.vae.to(device)
-    [text_encoder.to(device) for text_encoder in self.text_encoders]
-    [unet.to(device) for unet in self.unets]
 
   def __init__(self, model_path, torch_dtype=torch.float16):
     self.vae = AutoencoderKL.from_pretrained(model_path, subfolder="vae", torch_dtype=torch_dtype)
@@ -58,7 +56,6 @@ class StableDiffusionParallelPipeline:
       (batch_size, self.unets[0].config.in_channels, height // 8, width // 8),
       generator=generator,
     ).to(self.dtype)
-
     self.scheduler.set_timesteps(num_inference_steps)
     latents = latents * self.scheduler.init_noise_sigma
 
