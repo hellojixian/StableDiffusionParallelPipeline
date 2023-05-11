@@ -44,7 +44,9 @@ class StableDiffusionParallelPipeline:
   def unet_pred(self, latent_model_input, t, text_embeddings, gpu_id):
     latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
     with torch.no_grad():
-      noise_pred = self.unets[gpu_id](latent_model_input.to(self.unets[gpu_id].device), t, encoder_hidden_states=text_embeddings).sample
+      noise_pred = self.unets[gpu_id](
+        latent_model_input.to(self.unets[gpu_id].device), t,
+        encoder_hidden_states=text_embeddings.to(self.unets[gpu_id].device)).sample
     return noise_pred
 
   @torch.no_grad()
