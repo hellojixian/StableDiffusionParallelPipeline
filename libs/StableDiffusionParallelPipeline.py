@@ -12,6 +12,11 @@ class StableDiffusionParallelPipeline:
     model = StableDiffusionParallelPipeline(model_path, torch_dtype)
     return model
 
+  def to(self, device):
+    self.vae.to(device)
+    [text_encoder.to(device) for text_encoder in self.text_encoders]
+    [unet.to(device) for unet in self.unets]
+
   def __init__(self, model_path, torch_dtype=torch.float16):
     self.vae = AutoencoderKL.from_pretrained(model_path, subfolder="vae", torch_dtype=torch_dtype)
     self.tokenizer = CLIPTokenizer.from_pretrained(model_path, subfolder="tokenizer", torch_dtype=torch_dtype)
